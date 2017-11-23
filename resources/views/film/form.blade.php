@@ -65,7 +65,7 @@
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Genre:</strong>
-            {!! Form::select('genre[]', $genres, $film->filmgenre, array("class" => "form-control multiple", "multiple" => "multiple")); !!}
+            {!! Form::select('genre[]', $genres, (isset($film->filmgenre)) ? $film->filmgenre : [], array("class" => "form-control multiple", "multiple" => "multiple")); !!}
         </div>
     </div>
 
