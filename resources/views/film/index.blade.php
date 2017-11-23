@@ -32,8 +32,8 @@
         <td>{{ $film->release_date}}</td>
         <td>{{ $film->rating}}</td>
         <td>
-            <!-- <a class="btn btn-info" href="{{ route('films.show',$film->id) }}">Show</a> -->
-            <a class="btn btn-primary" href="{{ route('films.edit',$film->id) }}">Edit</a>
+            <a class="btn btn-info" href="{{ route('films.show',$film->slug) }}">Show</a>
+            <a class="btn btn-primary" href="{{ route('films.edit',$film->slug) }}">Edit</a>
             {!! Form::open(['method' => 'DELETE','route' => ['films.destroy', $film->id],'style'=>'display:inline']) !!}
             {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
             {!! Form::close() !!}

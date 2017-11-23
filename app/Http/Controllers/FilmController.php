@@ -64,8 +64,9 @@ class FilmController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Film $film)
+    public function show($slug)
     {
+        $film = Film::where('slug',$slug)->first();
         return view('film.view',compact('film'));
     }
     /**
@@ -74,8 +75,9 @@ class FilmController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Film $film)
+    public function edit($slug)
     {
+        $film = Film::where('slug',$slug)->first();
         return view('film.edit',compact('film'));
     }
     /**

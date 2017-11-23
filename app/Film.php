@@ -8,4 +8,10 @@ class Film extends Model
 {
     //
     protected $fillable = ['name', 'slug', 'description', 'release_date', 'rating', 'ticket_price', 'country', 'photo'];
+
+    
+    public function getRouteKeyName()
+	{
+	    return 'slug';
+	}
 }

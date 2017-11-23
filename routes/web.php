@@ -11,12 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', "FilmController@index");
 
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('films/{slug}', 'FilmController@show');
 
 Route::resource('films','FilmController');

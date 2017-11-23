@@ -26,7 +26,7 @@
 	    </div>	            
 	    <div class="row">
 	        <div class="col-lg-4 col-lg-offset-4">
-			    {!! Form::open(array('route' => ['films.update', $film->id],'method'=>'PATCH','files'=>true)) !!}
+			    {!! Form::open(array('route' => ['films.update', $film->slug],'method'=>'PATCH','files'=>true)) !!}
 			         @include('film.form')
 			    {!! Form::close() !!}
 	        </div>
