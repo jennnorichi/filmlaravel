@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Film;
 use App\Http\Resources\Film as FilmResource;
+use App\Genre;
+use App\FilmGenre;
 
 class FilmController extends Controller
 {
@@ -27,7 +29,8 @@ class FilmController extends Controller
      */
     public function create()
     {
-        return view('film.create');
+        $genres = Genre::pluck('name','id');
+        return view('film.create', compact('genres'));
     }
     /**
      * Store a newly created resource in storage.
@@ -37,6 +40,7 @@ class FilmController extends Controller
      */
     public function store(Request $request)
     {
+
         request()->validate([
             'name' => 'required',
             'description' => 'required',
@@ -54,7 +58,12 @@ class FilmController extends Controller
         //$request->merge($request->all(), ['photo' => $imageName, 'release_date' => date("Y-m-d", strtotime(str_replace('-','/', $request->release_date)))]); 
         $data = array_merge($request->all(),  ['photo' => $imageName, 'release_date' => date("Y-m-d", strtotime(str_replace('-','/', $request->release_date)))]); 
         //print_r($data);exit;
-        Film::create($data);
+        $filmId = Film::create($data);
+
+        foreach ($request['genre'] as $genre) {
+            FilmGenre::create(['film_id' => $filmId->id, 'genre_id' => $genre]);
+        }
+
         return redirect()->route('films.index')
                         ->with('success','Film created successfully');
     }
@@ -77,8 +86,9 @@ class FilmController extends Controller
      */
     public function edit($slug)
     {
+        $genres = Genre::pluck('name','id');
         $film = Film::where('slug',$slug)->first();
-        return view('film.edit',compact('film'));
+        return view('film.edit',compact('film', 'genres'));
     }
     /**
      * Update the specified resource in storage.
@@ -111,6 +121,11 @@ class FilmController extends Controller
         }
 
         $film->update($data);
+        FilmGenre::where('film_id', $film->id)->delete();
+        foreach ($request['genre'] as $genre) {
+            FilmGenre::create(['film_id' => $film->id, 'genre_id' => $genre]);
+        }
+
         return redirect()->route('films.index')
                         ->with('success','Film updated successfully');
     }

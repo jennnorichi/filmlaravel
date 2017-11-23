@@ -56,8 +56,11 @@ $(document).ready(function(){
 	    $("#filmSlug").val(slugify($(this).val()));
 	});
   
+ 	//Select2 for select boxes
+ 	$("select").select2();
   	//Select the star on edit page
  	$('#stars li:nth-child('+$("#ratingValue").val()+')').trigger( "click" );
+
 });
 
 

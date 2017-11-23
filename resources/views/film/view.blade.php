@@ -23,7 +23,9 @@
 						<p class="product-description">{{$film->description}}</p>
 						<h4 class="price">current price: <span>${{$film->ticket_price}}</span></h4>
 						<h5 class="sizes">Genre:
-							<span class="size">s</span>
+							<?php foreach ($film->filmgenre as $genre) { ?>
+								<span class="size">{{$genre->genre->name}}</span>								
+							<?php } ?>
 						</h5>
 						<h5 class="sizes">Country:
 							<span class="size">{{$film->country}}</span>

@@ -64,6 +64,13 @@
 
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
+            <strong>Genre:</strong>
+            {!! Form::select('genre[]', $genres, $film->filmgenre, array("class" => "form-control multiple", "multiple" => "multiple")); !!}
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
             <strong>Country:</strong>
             {!! Form::text('country', (isset($film->country) ? $film->country: null), array('placeholder' => 'Country','class' => 'form-control')) !!}
         </div>
