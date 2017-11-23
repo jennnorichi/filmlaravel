@@ -19,4 +19,9 @@ class Film extends Model
     {
         return $this->hasMany('App\FilmGenre');
     }
+
+    public function filmcomments()
+    {
+        return $this->hasMany('App\FilmComments');
+    }
 }

@@ -8,6 +8,8 @@ use App\Film;
 use App\Http\Resources\Film as FilmResource;
 use App\Genre;
 use App\FilmGenre;
+use App\FilmComments;
+use Illuminate\Support\Facades\Auth;
 
 class FilmController extends Controller
 {
@@ -140,5 +142,24 @@ class FilmController extends Controller
         Film::destroy($id);
         return redirect()->route('films.index')
                         ->with('success','Film deleted successfully');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function addcomment(Request $request, $slug)
+    {
+        $userId = Auth::id();
+        request()->validate([
+            'comment' => 'required|max:120'
+        ]);
+        $film = Film::where('slug',$slug)->first();
+
+        FilmComments::create(['film_id'=> $film->id, 'user_id'=>$userId, 'comment'=>$request['comment']]);
+        return redirect()->route('films.show', ['slug'=>$slug])
+                        ->with('success','Comment successfully');
     }
 }

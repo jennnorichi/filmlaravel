@@ -34,30 +34,32 @@
 
 				</div>
 				<div class="col-md-8 col-md-offset-2 text-center">
-    <div class="well">
-        <h4>What is on your mind?</h4>
-    <div class="input-group">
-        <input type="text" id="userComment" class="form-control input-sm chat-input" placeholder="Write your message here..." />
-	    <span class="input-group-btn" onclick="addComment()">     
-            <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-comment"></i> Add Comment</a>
-        </span>
-    </div>
-    <hr data-brackets-id="12673">
-    <ul data-brackets-id="12674" id="sortable" class="list-unstyled ui-sortable">
-        <strong class="pull-left primary-font">James</strong>
-        <small class="pull-right text-muted">
-           <span class="glyphicon glyphicon-time"></span>7 mins ago</small>
-        </br>
-        <li class="ui-state-default">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </li>
-        </br>
-         <strong class="pull-left primary-font">Taylor</strong>
-        <small class="pull-right text-muted">
-           <span class="glyphicon glyphicon-time"></span>14 mins ago</small>
-        </br>
-        <li class="ui-state-default">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</li>
-        
-    </ul>
-    </div>
+			    <div class="well">
+			        <h4>What is on your mind?</h4>
+			        @guest
+					    <a href="{{ route('login') }}" class="btn btn-primary btn-sm">Login to add your comments</a>
+			        @else
+			        {!! Form::open(array('route' => ['films.addcomment', $film->slug],'method'=>'POST')) !!}
+				        <div class="col-md-4">
+					        <input name="comment" type="text" id="userComment" class="form-control pull-left input-sm chat-input" placeholder="Write your message here..." />
+						    
+					    </div>
+					    <button class="btn btn-primary pull-left" type="submit"><i class="fa fa-comment"></i> Add Comment</button>
+				    {!! Form::close() !!}
+					    
+				    @endguest
+			    <hr data-brackets-id="12673">
+			    <ul data-brackets-id="12674" id="sortable" class="list-unstyled ui-sortable">
+			    	<?php foreach ($film->filmcomments as $comments) { ?>
+			    		<strong class="pull-left primary-font">{{$comments->user->name}}</strong>
+				        	<small class="pull-right text-muted">
+				           <i class="fa fa-clock-o"></i>{{$comments->created_at}}</small>
+				        </br>
+				        <li class="ui-state-default">{{$comments->comment}}</li>
+				        </br>
+			    	<?php } ?>
+			    </ul>
+			    </div>
 			</div>
 		</div>
 </div>

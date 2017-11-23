@@ -19,4 +19,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('films/create', 'FilmController@create');
 Route::get('films/{slug}', 'FilmController@show');
 
+Route::post('films/addcomment/{slug}', 'FilmController@addcomment')->name('films.addcomment');
 Route::resource('films','FilmController');
