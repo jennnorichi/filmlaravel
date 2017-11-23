@@ -87,11 +87,10 @@ class FilmController extends Controller
      */
     public function update(Request $request, Film $film)
     {
-        exit;
         request()->validate([
             'name' => 'required',
             'description' => 'required',
-            'slug' => 'required|unique:films|max:25',
+            'slug' => 'required|max:25|unique:films,id, '.$film->id,
             'rating' => 'required',
             'release_date' => 'required',
             'ticket_price' => 'required',
